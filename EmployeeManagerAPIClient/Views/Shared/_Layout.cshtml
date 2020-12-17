@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EmployeeManagerMVC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-info">Employee Manager</h1>
+        @RenderBody()
+        <br />
+        <hr />
+
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <h2 class="text-success"> You are Signed In as @User.Identity.Name </h2><span style="color:white;">mizan@123</span>
+            <form asp-controller="Security" asp-action="SignOut" method="post">
+                <button class="btn btn-info" type="submit"> Sign Out</button>
+            </form>
+        }
+
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

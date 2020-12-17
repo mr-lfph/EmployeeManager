@@ -1,0 +1,19 @@
+﻿
+<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+            <NotAuthorized>
+                <h2 class="text-warning">You are not Authorized to view this page</h2>
+                <h3>To Sign In Click <a class="btn btn-info" href="/security/signin">Here</a></h3>
+            </NotAuthorized>
+        </AuthorizeRouteView>
+    </Found>
+    <NotFound>
+        <CascadingAuthenticationState>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p class="text-warning">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </CascadingAuthenticationState>
+
+    </NotFound>
+</Router>

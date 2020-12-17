@@ -1,0 +1,108 @@
+﻿@page "/Employees/Update/{EmployeeID:int}"
+@inject IEmployeeRepository EmpRepository
+@attribute [Authorize(Roles = "Manager")]
+
+
+@code {
+    [Parameter]
+    public int EmployeeID { get; set; }
+
+    Employee EmployeeModel { get; set; }
+    List<string> Countries { get; set; }
+    string Message { get; set; }
+
+    protected override void OnInitialized()
+    {
+        EmployeeModel = EmpRepository.SelectByID(EmployeeID);
+        Countries = EmpRepository.SelectCountries();
+    }
+
+    private void OnSaveClick()
+    {
+        EmpRepository.Update(EmployeeModel);
+        Message = "Employee Updated Successfullly";
+    }
+
+}
+
+<h2 class="text-info">Update an Existing Employee</h2>
+<h3 class="text-warning">@Message</h3>
+<EditForm Model="EmployeeModel" OnValidSubmit="OnSaveClick">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <table border="0" cellpadding="5">
+        <tr>
+            <td><label>Employee Id</label></td>
+            <td>@EmployeeModel.EmployeeID</td>
+        </tr>
+        <tr>
+            <td><label for="FirstName">First Name</label></td>
+            <td>
+                <InputText id="FirstName" @bind-Value="EmployeeModel.FirstName"></InputText>
+                <ValidationMessage For="(()=>EmployeeModel.FirstName)"></ValidationMessage>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="LastName">Last Name</label></td>
+            <td>
+                <InputText id="LastName" @bind-Value="EmployeeModel.LastName"></InputText>
+                <ValidationMessage For="(()=>EmployeeModel.LastName)"></ValidationMessage>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="Title">Title</label></td>
+            <td>
+                <InputText id="Title" @bind-Value="EmployeeModel.Title"></InputText>
+                <ValidationMessage For="(()=>EmployeeModel.Title)"></ValidationMessage>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="BirthDate">Birth Date</label></td>
+            <td>
+                <InputDate id="BirthDate" @bind-Value="EmployeeModel.BirthDate"></InputDate>
+                <ValidationMessage For="(() => EmployeeModel.BirthDate)"></ValidationMessage>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="HireDate">Hire Date</label></td>
+            <td>
+                <InputDate id="HireDate" @bind-Value="EmployeeModel.HireDate"></InputDate>
+                <ValidationMessage For="( () => EmployeeModel.HireDate)"></ValidationMessage>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="Country">Country</label></td>
+            <td>
+                <InputSelect id="Country" @bind-Value="EmployeeModel.Country ">
+                    <option value="">Please Select</option>
+
+                    @if (Countries != null)
+                    {
+                        foreach (var cn in Countries)
+                        {
+                            <option value="@cn"> @cn </option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="(()=>EmployeeModel.Country)"></ValidationMessage>
+
+            </td>
+        </tr>
+        <tr>
+            <td><label for="Notes">Notes</label></td>
+            <td>
+                <InputTextArea id="LastName" @bind-Value="EmployeeModel.Notes"></InputTextArea>
+                <ValidationMessage For="(()=>EmployeeModel.Notes)"></ValidationMessage>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><button type="submit" class="btn btn-info">Update an Employee</button></td>
+        </tr>
+
+    </table>
+</EditForm>
+
+<hr />
+
+<a class="btn btn-info" href="/employees/list">Back to Employee Listing</a>
+

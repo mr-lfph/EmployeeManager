@@ -1,0 +1,78 @@
+﻿@page "/Employees/Delete/{EmployeeID:int}"
+@inject NavigationManager UriHelper
+@inject IEmployeeRepository EmpRepository
+@attribute [Authorize(Roles = "Manager")]
+
+
+
+
+@code {
+    [Parameter]
+    public int EmployeeId { get; set; }
+    Employee EmployeeModel { get; set; }
+    string Message { get; set; }
+
+    protected override void OnInitialized()
+    {
+        EmployeeModel = EmpRepository.SelectByID(EmployeeId);
+    }
+    private void OnDeleteClick()
+    {
+        EmpRepository.Delete(EmployeeId);
+        Message = "Employee Deleted Successfully";
+        UriHelper.NavigateTo($"/employees/list?Message={Message}");
+    }
+
+}
+
+<h2 class="text-info">Delete Employee</h2>
+<h3 class="text-warning"> Warning: You are about to delete an Employee</h3>
+<hr />
+<form>
+    <table border="0">
+        <tr>
+            <td><label>Employee ID</label> </td>
+            <td>@EmployeeModel.EmployeeID</td>
+        </tr>
+        <tr>
+            <td><label>First Name</label> </td>
+            <td>@EmployeeModel.FirstName</td>
+        </tr>
+        <tr>
+            <td><label>Last Name</label> </td>
+            <td>@EmployeeModel.LastName</td>
+        </tr>
+        <tr>
+            <td><label>Title</label> </td>
+            <td>@EmployeeModel.Title</td>
+        </tr>
+        <tr>
+            <td><label>Birth Date</label> </td>
+            <td>@EmployeeModel.BirthDate.ToString("dd MM yyyy")</td>
+        </tr>
+        <tr>
+            <td><label>Hire Date</label> </td>
+            <td>@EmployeeModel.HireDate.ToString("dd MM yyyy")</td>
+        </tr>
+        <tr>
+            <td><label>Country</label> </td>
+            <td>@EmployeeModel.Country</td>
+        </tr>
+        <tr>
+            <td><label>Notes</label> </td>
+            <td>@EmployeeModel.Notes</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><button type="button" @onclick="OnDeleteClick">Delete Employee</button> </td>
+        </tr>
+    </table>
+</form>
+
+
+<hr />
+<a class="btn btn-info" href="/employees/list">Back to Employee Listing</a>
+
+
+
+

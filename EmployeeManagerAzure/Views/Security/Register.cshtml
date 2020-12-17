@@ -1,0 +1,45 @@
+﻿@model Register
+
+<h2 class="text-primary">Create New User Account</h2>
+<hr />
+<form asp-controller="Security" asp-action="Register" method="post">
+    <table>
+        <tr>
+            <td><label asp-for="UserName"></label></td>
+            <td><input type="text" asp-for="UserName" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Password"></label></td>
+            <td><input type="password" asp-for="Password" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="ConfirmPassword"></label></td>
+            <td><input type="password" asp-for="ConfirmPassword" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Email"></label></td>
+            <td><input type="text" asp-for="Email" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="FullName"></label></td>
+            <td><input type="text" asp-for="FullName" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="BirthDate"></label></td>
+            <td><input type="date" asp-for="BirthDate" /></td>
+        </tr>
+       <tr>
+           <td></td>
+           <td>
+               <button  class="btn btn-info" type="submit">Create</button>
+           </td>
+       </tr>
+    </table>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <h3><a asp-controller="Security" asp-action="SignIn">Go to Sign In Page</a></h3>
+
+
+
+
+</form>

@@ -1,0 +1,86 @@
+﻿@model Employee
+<h2 class="text-info">Insert New Employee</h2>
+<h3 class=" alert-success"> @ViewBag.Message </h3>
+<hr />
+<form asp-controller="EmployeeManager" asp-action="Insert" method="post">
+    <table border="0">
+        <tr>
+            <td>
+                <label asp-for="FirstName"></label>
+            </td>
+            <td>
+                <input type="text" asp-for="FirstName" />
+                <span asp-validation-for="FirstName" class="alert-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="LastName"></label>
+            </td>
+            <td>
+                <input type="text" asp-for="LastName" />
+                <span asp-validation-for="LastName" class="alert-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Title"></label>
+            </td>
+            <td>
+                <input type="text" asp-for="Title" />
+                <span asp-validation-for="Title" class="alert-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="BirthDate"></label>
+            </td>
+            <td>
+                <input type="date" asp-for="BirthDate" />
+                <span asp-validation-for="BirthDate" class="alert-danger"></span>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label asp-for="HireDate"></label>
+            </td>
+            <td>
+                <input type="date" asp-for="HireDate" />
+                <span asp-validation-for="HireDate" class="alert-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Country"></label>
+            </td>
+            <td>
+                <select asp-for="Country" asp-items="@ViewBag.Countries">
+                    <option value="">Please Select </option>
+                </select>
+                <span asp-validation-for="Country" class="alert-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Notes"></label>
+
+            </td>
+            <td>
+                <textarea asp-for="Notes" rows="5" cols="40"></textarea>
+                <span asp-validation-for="Notes" class="alert-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit" class="btn btn-info">Save</button>
+            </td>
+        </tr>
+
+    </table>
+
+</form>
+<hr />
+<br />
+<a asp-controller="EmployeeManager" asp-action="List" class="btn btn-info">Back to Employee List</a>

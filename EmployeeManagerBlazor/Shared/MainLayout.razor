@@ -1,0 +1,20 @@
+﻿@inherits LayoutComponentBase
+
+<h1 class="text-success">Employee Manager Blazor Application</h1>
+<hr class="text-info" />
+<br />
+<div>
+    @Body
+</div>
+
+<br />
+<hr />
+<AuthorizeView>
+    <Authorized>
+        <h2>
+            You are Signed In as <span class="text-success"> @context.User.Identity.Name</span>
+            <a href="/Security/SignOut" class="btn btn-success">Sign Out</a>
+        </h2>
+
+    </Authorized>
+</AuthorizeView>
